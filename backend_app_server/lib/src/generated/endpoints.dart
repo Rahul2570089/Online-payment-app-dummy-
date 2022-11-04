@@ -18,7 +18,7 @@ class Endpoints extends EndpointDispatch {
   void initializeEndpoints(Server server) {
     var endpoints = <String, Endpoint>{
       'example': ExampleEndpoint()..initialize(server, 'example', null),
-      'user': UserEndpoint()..initialize(server, 'user', null),
+      'account': AccountEndpoint()..initialize(server, 'account', null),
     };
 
     connectors['example'] = EndpointConnector(
@@ -41,66 +41,75 @@ class Endpoints extends EndpointDispatch {
       },
     );
 
-    connectors['user'] = EndpointConnector(
-      name: 'user',
-      endpoint: endpoints['user']!,
+    connectors['account'] = EndpointConnector(
+      name: 'account',
+      endpoint: endpoints['account']!,
       methodConnectors: {
-        'create': MethodConnector(
-          name: 'create',
+        'createAcc': MethodConnector(
+          name: 'createAcc',
+          params: {
+            'account': ParameterDescription(
+                name: 'account', type: Account, nullable: false),
+          },
+          call: (Session session, Map<String, dynamic> params) async {
+            return (endpoints['account'] as AccountEndpoint).createAcc(
+              session,
+              params['account'],
+            );
+          },
+        ),
+        'createUser': MethodConnector(
+          name: 'createUser',
           params: {
             'user':
                 ParameterDescription(name: 'user', type: User, nullable: false),
           },
           call: (Session session, Map<String, dynamic> params) async {
-            return (endpoints['user'] as UserEndpoint).create(
+            return (endpoints['account'] as AccountEndpoint).createUser(
               session,
               params['user'],
             );
           },
         ),
-        'read': MethodConnector(
-          name: 'read',
+        'readAcc': MethodConnector(
+          name: 'readAcc',
           params: {
             'id': ParameterDescription(name: 'id', type: int, nullable: false),
           },
           call: (Session session, Map<String, dynamic> params) async {
-            return (endpoints['user'] as UserEndpoint).read(
+            return (endpoints['account'] as AccountEndpoint).readAcc(
               session,
               params['id'],
             );
           },
         ),
-        'readAll': MethodConnector(
-          name: 'readAll',
+        'readUser': MethodConnector(
+          name: 'readUser',
+          params: {
+            'id': ParameterDescription(name: 'id', type: int, nullable: false),
+          },
+          call: (Session session, Map<String, dynamic> params) async {
+            return (endpoints['account'] as AccountEndpoint).readUser(
+              session,
+              params['id'],
+            );
+          },
+        ),
+        'readAllAcc': MethodConnector(
+          name: 'readAllAcc',
           params: {},
           call: (Session session, Map<String, dynamic> params) async {
-            return (endpoints['user'] as UserEndpoint).readAll(
+            return (endpoints['account'] as AccountEndpoint).readAllAcc(
               session,
             );
           },
         ),
-        'update': MethodConnector(
-          name: 'update',
-          params: {
-            'user':
-                ParameterDescription(name: 'user', type: User, nullable: false),
-          },
+        'readAllUser': MethodConnector(
+          name: 'readAllUser',
+          params: {},
           call: (Session session, Map<String, dynamic> params) async {
-            return (endpoints['user'] as UserEndpoint).update(
+            return (endpoints['account'] as AccountEndpoint).readAllUser(
               session,
-              params['user'],
-            );
-          },
-        ),
-        'delete': MethodConnector(
-          name: 'delete',
-          params: {
-            'id': ParameterDescription(name: 'id', type: int, nullable: false),
-          },
-          call: (Session session, Map<String, dynamic> params) async {
-            return (endpoints['user'] as UserEndpoint).delete(
-              session,
-              params['id'],
             );
           },
         ),

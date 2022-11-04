@@ -27,58 +27,68 @@ class _EndpointExample extends EndpointRef {
   }
 }
 
-class _EndpointUser extends EndpointRef {
+class _EndpointAccount extends EndpointRef {
   @override
-  String get name => 'user';
+  String get name => 'account';
 
-  _EndpointUser(EndpointCaller caller) : super(caller);
+  _EndpointAccount(EndpointCaller caller) : super(caller);
 
-  Future<User> create(
+  Future<Account> createAcc(
+    Account account,
+  ) async {
+    var retval =
+        await caller.callServerEndpoint('account', 'createAcc', 'Account', {
+      'account': account,
+    });
+    return retval;
+  }
+
+  Future<User> createUser(
     User user,
   ) async {
-    var retval = await caller.callServerEndpoint('user', 'create', 'User', {
+    var retval =
+        await caller.callServerEndpoint('account', 'createUser', 'User', {
       'user': user,
     });
     return retval;
   }
 
-  Future<User?> read(
+  Future<Account?> readAcc(
     int id,
   ) async {
-    var retval = await caller.callServerEndpoint('user', 'read', 'User', {
+    var retval =
+        await caller.callServerEndpoint('account', 'readAcc', 'Account', {
       'id': id,
     });
     return retval;
   }
 
-  Future<List<User>> readAll() async {
+  Future<User?> readUser(
+    int id,
+  ) async {
     var retval =
-        await caller.callServerEndpoint('user', 'readAll', 'List<User>', {});
+        await caller.callServerEndpoint('account', 'readUser', 'User', {
+      'id': id,
+    });
+    return retval;
+  }
+
+  Future<List<Account>> readAllAcc() async {
+    var retval = await caller
+        .callServerEndpoint('account', 'readAllAcc', 'List<Account>', {});
     return (retval as List).cast();
   }
 
-  Future<User> update(
-    User user,
-  ) async {
-    var retval = await caller.callServerEndpoint('user', 'update', 'User', {
-      'user': user,
-    });
-    return retval;
-  }
-
-  Future<void> delete(
-    int id,
-  ) async {
-    var retval = await caller.callServerEndpoint('user', 'delete', 'void', {
-      'id': id,
-    });
-    return retval;
+  Future<List<User>> readAllUser() async {
+    var retval = await caller
+        .callServerEndpoint('account', 'readAllUser', 'List<User>', {});
+    return (retval as List).cast();
   }
 }
 
 class Client extends ServerpodClient {
   late final _EndpointExample example;
-  late final _EndpointUser user;
+  late final _EndpointAccount account;
 
   Client(String host,
       {SecurityContext? context,
@@ -89,13 +99,13 @@ class Client extends ServerpodClient {
             errorHandler: errorHandler,
             authenticationKeyManager: authenticationKeyManager) {
     example = _EndpointExample(this);
-    user = _EndpointUser(this);
+    account = _EndpointAccount(this);
   }
 
   @override
   Map<String, EndpointRef> get endpointRefLookup => {
         'example': example,
-        'user': user,
+        'account': account,
       };
 
   @override

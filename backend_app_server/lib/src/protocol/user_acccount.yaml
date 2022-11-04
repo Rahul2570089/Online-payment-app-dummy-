@@ -1,0 +1,6 @@
+class: Account
+table: accounts
+
+fields:
+  number: String
+  balance: String

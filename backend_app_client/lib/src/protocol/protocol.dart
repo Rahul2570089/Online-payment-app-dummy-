@@ -14,10 +14,12 @@ import 'dart:typed_data';
 import 'package:serverpod_client/serverpod_client.dart';
 
 import 'example_class.dart';
-import 'user_class.dart';
+import 'user_acccount.dart';
+import 'user_auth.dart';
 
 export 'example_class.dart';
-export 'user_class.dart';
+export 'user_acccount.dart';
+export 'user_auth.dart';
 export 'client.dart';
 
 class Protocol extends SerializationManager {
@@ -30,6 +32,8 @@ class Protocol extends SerializationManager {
   Protocol() {
     constructors['Example'] = (Map<String, dynamic> serialization) =>
         Example.fromSerialization(serialization);
+    constructors['Account'] = (Map<String, dynamic> serialization) =>
+        Account.fromSerialization(serialization);
     constructors['User'] = (Map<String, dynamic> serialization) =>
         User.fromSerialization(serialization);
   }

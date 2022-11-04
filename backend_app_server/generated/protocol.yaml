@@ -1,8 +1,9 @@
 example:
   - hello:
-user:
-  - create:
-  - read:
-  - readAll:
-  - update:
-  - delete:
+account:
+  - createAcc:
+  - createUser:
+  - readAcc:
+  - readUser:
+  - readAllAcc:
+  - readAllUser:
