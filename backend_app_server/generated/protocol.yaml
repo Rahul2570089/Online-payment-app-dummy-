@@ -1,0 +1,8 @@
+example:
+  - hello:
+user:
+  - create:
+  - read:
+  - readAll:
+  - update:
+  - delete:

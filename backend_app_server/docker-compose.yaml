@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:14.1
+    ports:
+      - '8090:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: backend_app
+      POSTGRES_PASSWORD: "JUm5_6R9PpHvpq0qA1mcQJt8s-49JMXV"
+    volumes:
+      - backend_app_data:/var/lib/postgresql/data
+  redis:
+    image: redis:6.2.6
+    ports:
+      - '8091:6379'
+    command: redis-server --requirepass "b7svB3gEVtvo-tqz5xqNgZGeJum_H1xZ"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+volumes:
+  backend_app_data:
