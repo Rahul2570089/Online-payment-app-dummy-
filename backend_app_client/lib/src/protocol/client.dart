@@ -94,6 +94,22 @@ class _EndpointAccount extends EndpointRef {
     });
     return retval;
   }
+
+  Future<Transactions> createTrans(
+    Transactions transactions,
+  ) async {
+    var retval = await caller
+        .callServerEndpoint('account', 'createTrans', 'Transactions', {
+      'transactions': transactions,
+    });
+    return retval;
+  }
+
+  Future<List<Transactions>> readAllTrans() async {
+    var retval = await caller.callServerEndpoint(
+        'account', 'readAllTrans', 'List<Transactions>', {});
+    return (retval as List).cast();
+  }
 }
 
 class Client extends ServerpodClient {

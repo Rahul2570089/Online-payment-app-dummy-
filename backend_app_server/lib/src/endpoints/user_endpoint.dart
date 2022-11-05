@@ -34,6 +34,15 @@ class AccountEndpoint extends Endpoint {
     return account;
   }
 
+  Future<Transactions> createTrans(Session session, Transactions transactions) async {
+    await Transactions.insert(session, transactions);
+    return transactions;
+  }
+
+  Future<List<Transactions>> readAllTrans(Session session) async {
+    return await Transactions.find(session);
+  }
+
   // Future<void> delete(Session session, int id) async {
   //   await Account.delete(session, where: (account) => account.id.equals(id),);
   // } 

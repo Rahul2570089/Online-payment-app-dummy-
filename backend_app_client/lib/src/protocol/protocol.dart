@@ -16,10 +16,12 @@ import 'package:serverpod_client/serverpod_client.dart';
 import 'example_class.dart';
 import 'user_acccount.dart';
 import 'user_auth.dart';
+import 'user_transactions.dart';
 
 export 'example_class.dart';
 export 'user_acccount.dart';
 export 'user_auth.dart';
+export 'user_transactions.dart';
 export 'client.dart';
 
 class Protocol extends SerializationManager {
@@ -36,5 +38,7 @@ class Protocol extends SerializationManager {
         Account.fromSerialization(serialization);
     constructors['User'] = (Map<String, dynamic> serialization) =>
         User.fromSerialization(serialization);
+    constructors['Transactions'] = (Map<String, dynamic> serialization) =>
+        Transactions.fromSerialization(serialization);
   }
 }

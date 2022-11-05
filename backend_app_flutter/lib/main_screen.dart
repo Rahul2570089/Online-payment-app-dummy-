@@ -1,5 +1,6 @@
 import 'package:backend_app_client/backend_app_client.dart';
 import 'package:backend_app_flutter/main.dart';
+import 'package:backend_app_flutter/transaction_page.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,6 +14,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   TextEditingController numberController = TextEditingController();
   TextEditingController balanceController = TextEditingController();
+  String formatDate =
+      '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}';
 
   @override
   Widget build(BuildContext context) {
@@ -45,34 +48,18 @@ class _MainScreenState extends State<MainScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
-                              Text("Account number: ",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  )),
+                              Text("Account number: "),
                               SizedBox(height: 20),
-                              Text("Balance: ",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  )),
+                              Text("Balance: "),
                             ],
                           ),
                           const SizedBox(width: 40),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(widget.account!.number,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  )),
+                              Text(widget.account!.number),
                               const SizedBox(height: 20),
-                              Text('₹${widget.account!.balance}',
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  )),
+                              Text('₹${widget.account!.balance}'),
                             ],
                           ),
                           const SizedBox(height: 20),
@@ -195,6 +182,12 @@ class _MainScreenState extends State<MainScreen> {
                                                     'Transaction successful'),
                                               ),
                                             );
+                                            final transaction = Transactions(
+                                                sender: widget.account!.number,
+                                                receiver: receiver.number,
+                                                amount: balanceController.text,
+                                                date: formatDate);
+                                            await api.createTrans(transaction);
                                           } else {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
@@ -214,7 +207,6 @@ class _MainScreenState extends State<MainScreen> {
                                           ),
                                         );
                                       }
-
                                       // ignore: use_build_context_synchronously
                                       Navigator.of(context2).pop();
                                     },
@@ -225,6 +217,19 @@ class _MainScreenState extends State<MainScreen> {
                             });
                       },
                       child: const Text('Send money'),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    height: 40,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                TransactionScreen(account: widget.account)));
+                      },
+                      child: const Text('View transactions'),
                     ),
                   )
                 ]),

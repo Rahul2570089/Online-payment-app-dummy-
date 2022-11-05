@@ -1,0 +1,8 @@
+class: Transactions
+table: transactions
+
+fields:
+  sender: String
+  receiver: String
+  amount: String
+  date: String

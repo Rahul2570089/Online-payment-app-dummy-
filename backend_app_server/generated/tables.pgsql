@@ -13,6 +13,22 @@ ALTER TABLE ONLY accounts
 
 
 --
+-- Class Transactions as table transactions
+--
+
+CREATE TABLE transactions (
+  "id" serial,
+  "sender" text NOT NULL,
+  "receiver" text NOT NULL,
+  "amount" text NOT NULL,
+  "date" text NOT NULL
+);
+
+ALTER TABLE ONLY transactions
+  ADD CONSTRAINT transactions_pkey PRIMARY KEY (id);
+
+
+--
 -- Class User as table users
 --
 

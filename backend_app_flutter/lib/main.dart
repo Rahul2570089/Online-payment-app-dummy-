@@ -25,7 +25,32 @@ class MyApp extends StatelessWidget {
       title: 'Simple eBank App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
+        scaffoldBackgroundColor: Colors.white,
+        textTheme: const TextTheme(
+          headline1: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+          headline2: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          headline3: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyText1: TextStyle(
+            fontSize: 20,
+            color: Colors.indigoAccent,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyText2: TextStyle(
+            fontSize: 20,
+            color: Colors.indigoAccent,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       home: const MyHomePage(title: 'Simple eBank App'),
     );
@@ -62,6 +87,8 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const Text("Login to your account"),
+                const SizedBox(height: 20),
                 TextField(
                   controller: emailController,
                   enableSuggestions: true,

@@ -8,3 +8,5 @@ account:
   - readAllAcc:
   - readAllUser:
   - updateAcc:
+  - createTrans:
+  - readAllTrans:

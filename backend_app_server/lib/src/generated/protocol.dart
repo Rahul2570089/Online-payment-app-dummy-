@@ -16,10 +16,12 @@ import 'package:serverpod/serverpod.dart';
 import 'example_class.dart';
 import 'user_acccount.dart';
 import 'user_auth.dart';
+import 'user_transactions.dart';
 
 export 'example_class.dart';
 export 'user_acccount.dart';
 export 'user_auth.dart';
+export 'user_transactions.dart';
 
 class Protocol extends SerializationManagerServer {
   static final Protocol instance = Protocol();
@@ -43,10 +45,14 @@ class Protocol extends SerializationManagerServer {
         Account.fromSerialization(serialization);
     constructors['User'] = (Map<String, dynamic> serialization) =>
         User.fromSerialization(serialization);
+    constructors['Transactions'] = (Map<String, dynamic> serialization) =>
+        Transactions.fromSerialization(serialization);
 
     tableClassMapping['accounts'] = 'Account';
     typeTableMapping[Account] = Account.t;
     tableClassMapping['users'] = 'User';
     typeTableMapping[User] = User.t;
+    tableClassMapping['transactions'] = 'Transactions';
+    typeTableMapping[Transactions] = Transactions.t;
   }
 }

@@ -126,6 +126,28 @@ class Endpoints extends EndpointDispatch {
             );
           },
         ),
+        'createTrans': MethodConnector(
+          name: 'createTrans',
+          params: {
+            'transactions': ParameterDescription(
+                name: 'transactions', type: Transactions, nullable: false),
+          },
+          call: (Session session, Map<String, dynamic> params) async {
+            return (endpoints['account'] as AccountEndpoint).createTrans(
+              session,
+              params['transactions'],
+            );
+          },
+        ),
+        'readAllTrans': MethodConnector(
+          name: 'readAllTrans',
+          params: {},
+          call: (Session session, Map<String, dynamic> params) async {
+            return (endpoints['account'] as AccountEndpoint).readAllTrans(
+              session,
+            );
+          },
+        ),
       },
     );
   }
