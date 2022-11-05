@@ -29,11 +29,10 @@ class AccountEndpoint extends Endpoint {
     return await User.find(session);
   }
 
-
-  // Future<Account> update(Session session, Account account) async {
-  //   await Account.update(session, account);
-  //   return account;
-  // }
+  Future<Account> updateAcc(Session session, Account account) async {
+    await Account.update(session, account);
+    return account;
+  }
 
   // Future<void> delete(Session session, int id) async {
   //   await Account.delete(session, where: (account) => account.id.equals(id),);

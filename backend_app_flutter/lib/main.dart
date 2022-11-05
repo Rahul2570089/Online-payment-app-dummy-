@@ -22,12 +22,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Serverpod Demo',
+      title: 'Simple eBank App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Serverpod Demo'),
+      home: const MyHomePage(title: 'Simple eBank App'),
     );
   }
 }
@@ -64,6 +64,7 @@ class MyHomePageState extends State<MyHomePage> {
               children: [
                 TextField(
                   controller: emailController,
+                  enableSuggestions: true,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
@@ -72,6 +73,9 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 20),
                 TextField(
                   controller: passwordController,
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
@@ -131,8 +135,10 @@ class MyHomePageState extends State<MyHomePage> {
                                 ),
                               );
                             }
+                            emailController.clear();
+                            passwordController.clear();
                             // ignore: use_build_context_synchronously
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>

@@ -7,3 +7,4 @@ account:
   - readUser:
   - readAllAcc:
   - readAllUser:
+  - updateAcc:

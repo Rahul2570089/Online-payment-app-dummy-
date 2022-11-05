@@ -113,6 +113,19 @@ class Endpoints extends EndpointDispatch {
             );
           },
         ),
+        'updateAcc': MethodConnector(
+          name: 'updateAcc',
+          params: {
+            'account': ParameterDescription(
+                name: 'account', type: Account, nullable: false),
+          },
+          call: (Session session, Map<String, dynamic> params) async {
+            return (endpoints['account'] as AccountEndpoint).updateAcc(
+              session,
+              params['account'],
+            );
+          },
+        ),
       },
     );
   }

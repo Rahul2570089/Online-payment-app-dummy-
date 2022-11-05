@@ -84,6 +84,16 @@ class _EndpointAccount extends EndpointRef {
         .callServerEndpoint('account', 'readAllUser', 'List<User>', {});
     return (retval as List).cast();
   }
+
+  Future<Account> updateAcc(
+    Account account,
+  ) async {
+    var retval =
+        await caller.callServerEndpoint('account', 'updateAcc', 'Account', {
+      'account': account,
+    });
+    return retval;
+  }
 }
 
 class Client extends ServerpodClient {
