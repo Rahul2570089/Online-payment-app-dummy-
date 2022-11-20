@@ -72,8 +72,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                       SizedBox(
                                         width: 80,
                                         child: transaction.amount[0] == '-'
-                                            ? const Text("Sender:  ")
-                                            : const Text("Receiver:  "),
+                                            ? const Text("Receiver:  ")
+                                            : const Text("Sender:  "),
                                       ),
                                       Text(
                                           transaction.amount[0] == '-'

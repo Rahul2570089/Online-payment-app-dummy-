@@ -147,7 +147,7 @@ class _MainScreenState extends State<MainScreen> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold)),
                               SizedBox(height: 20),
-                              Text("Account id: ",
+                              Text("Account number: ",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold)),
