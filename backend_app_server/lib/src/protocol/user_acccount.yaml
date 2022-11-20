@@ -2,5 +2,6 @@ class: Account
 table: accounts
 
 fields:
+  holderid: String
   number: String
   balance: String

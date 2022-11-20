@@ -2,5 +2,7 @@ class: User
 table: users
 
 fields:
+  name: String
   email: String
   password: String
+  pin: String

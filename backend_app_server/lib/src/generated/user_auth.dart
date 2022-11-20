@@ -24,28 +24,36 @@ class User extends TableRow {
 
   @override
   int? id;
+  late String name;
   late String email;
   late String password;
+  late String pin;
 
   User({
     this.id,
+    required this.name,
     required this.email,
     required this.password,
+    required this.pin,
   });
 
   User.fromSerialization(Map<String, dynamic> serialization) {
     var _data = unwrapSerializationData(serialization);
     id = _data['id'];
+    name = _data['name']!;
     email = _data['email']!;
     password = _data['password']!;
+    pin = _data['pin']!;
   }
 
   @override
   Map<String, dynamic> serialize() {
     return wrapSerializationData({
       'id': id,
+      'name': name,
       'email': email,
       'password': password,
+      'pin': pin,
     });
   }
 
@@ -53,8 +61,10 @@ class User extends TableRow {
   Map<String, dynamic> serializeForDatabase() {
     return wrapSerializationData({
       'id': id,
+      'name': name,
       'email': email,
       'password': password,
+      'pin': pin,
     });
   }
 
@@ -62,8 +72,10 @@ class User extends TableRow {
   Map<String, dynamic> serializeAll() {
     return wrapSerializationData({
       'id': id,
+      'name': name,
       'email': email,
       'password': password,
+      'pin': pin,
     });
   }
 
@@ -73,11 +85,17 @@ class User extends TableRow {
       case 'id':
         id = value;
         return;
+      case 'name':
+        name = value;
+        return;
       case 'email':
         email = value;
         return;
       case 'password':
         password = value;
+        return;
+      case 'pin':
+        pin = value;
         return;
       default:
         throw UnimplementedError();
@@ -195,14 +213,18 @@ class UserTable extends Table {
   @override
   String tableName = 'users';
   final id = ColumnInt('id');
+  final name = ColumnString('name');
   final email = ColumnString('email');
   final password = ColumnString('password');
+  final pin = ColumnString('pin');
 
   @override
   List<Column> get columns => [
         id,
+        name,
         email,
         password,
+        pin,
       ];
 }
 

@@ -18,11 +18,13 @@ class Account extends SerializableEntity {
   String get className => 'Account';
 
   int? id;
+  late String holderid;
   late String number;
   late String balance;
 
   Account({
     this.id,
+    required this.holderid,
     required this.number,
     required this.balance,
   });
@@ -30,6 +32,7 @@ class Account extends SerializableEntity {
   Account.fromSerialization(Map<String, dynamic> serialization) {
     var _data = unwrapSerializationData(serialization);
     id = _data['id'];
+    holderid = _data['holderid']!;
     number = _data['number']!;
     balance = _data['balance']!;
   }
@@ -38,6 +41,7 @@ class Account extends SerializableEntity {
   Map<String, dynamic> serialize() {
     return wrapSerializationData({
       'id': id,
+      'holderid': holderid,
       'number': number,
       'balance': balance,
     });

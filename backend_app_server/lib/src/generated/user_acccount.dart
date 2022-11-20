@@ -24,11 +24,13 @@ class Account extends TableRow {
 
   @override
   int? id;
+  late String holderid;
   late String number;
   late String balance;
 
   Account({
     this.id,
+    required this.holderid,
     required this.number,
     required this.balance,
   });
@@ -36,6 +38,7 @@ class Account extends TableRow {
   Account.fromSerialization(Map<String, dynamic> serialization) {
     var _data = unwrapSerializationData(serialization);
     id = _data['id'];
+    holderid = _data['holderid']!;
     number = _data['number']!;
     balance = _data['balance']!;
   }
@@ -44,6 +47,7 @@ class Account extends TableRow {
   Map<String, dynamic> serialize() {
     return wrapSerializationData({
       'id': id,
+      'holderid': holderid,
       'number': number,
       'balance': balance,
     });
@@ -53,6 +57,7 @@ class Account extends TableRow {
   Map<String, dynamic> serializeForDatabase() {
     return wrapSerializationData({
       'id': id,
+      'holderid': holderid,
       'number': number,
       'balance': balance,
     });
@@ -62,6 +67,7 @@ class Account extends TableRow {
   Map<String, dynamic> serializeAll() {
     return wrapSerializationData({
       'id': id,
+      'holderid': holderid,
       'number': number,
       'balance': balance,
     });
@@ -72,6 +78,9 @@ class Account extends TableRow {
     switch (columnName) {
       case 'id':
         id = value;
+        return;
+      case 'holderid':
+        holderid = value;
         return;
       case 'number':
         number = value;
@@ -195,12 +204,14 @@ class AccountTable extends Table {
   @override
   String tableName = 'accounts';
   final id = ColumnInt('id');
+  final holderid = ColumnString('holderid');
   final number = ColumnString('number');
   final balance = ColumnString('balance');
 
   @override
   List<Column> get columns => [
         id,
+        holderid,
         number,
         balance,
       ];
