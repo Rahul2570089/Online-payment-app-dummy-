@@ -13,11 +13,13 @@ library protocol;
 import 'dart:typed_data';
 import 'package:serverpod/serverpod.dart';
 
+import 'bank_accounts.dart';
 import 'example_class.dart';
 import 'user_acccount.dart';
 import 'user_auth.dart';
 import 'user_transactions.dart';
 
+export 'bank_accounts.dart';
 export 'example_class.dart';
 export 'user_acccount.dart';
 export 'user_auth.dart';
@@ -39,6 +41,8 @@ class Protocol extends SerializationManagerServer {
   Map<Type, Table> get typeTableMapping => _typeTableMapping;
 
   Protocol() {
+    constructors['BankAccounts'] = (Map<String, dynamic> serialization) =>
+        BankAccounts.fromSerialization(serialization);
     constructors['Example'] = (Map<String, dynamic> serialization) =>
         Example.fromSerialization(serialization);
     constructors['Account'] = (Map<String, dynamic> serialization) =>
@@ -48,6 +52,8 @@ class Protocol extends SerializationManagerServer {
     constructors['Transactions'] = (Map<String, dynamic> serialization) =>
         Transactions.fromSerialization(serialization);
 
+    tableClassMapping['bankaccounts'] = 'BankAccounts';
+    typeTableMapping[BankAccounts] = BankAccounts.t;
     tableClassMapping['accounts'] = 'Account';
     typeTableMapping[Account] = Account.t;
     tableClassMapping['users'] = 'User';

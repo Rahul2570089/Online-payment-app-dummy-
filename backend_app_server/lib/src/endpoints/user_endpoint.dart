@@ -43,6 +43,15 @@ class AccountEndpoint extends Endpoint {
     return await Transactions.find(session);
   }
 
+  Future<List<BankAccounts>> readAllBankAcc(Session session) async {
+    return await BankAccounts.find(session);
+  }
+
+  Future<BankAccounts> updateBankAcc(Session session, BankAccounts bankAccounts) async {
+    await BankAccounts.update(session, bankAccounts);
+    return bankAccounts;
+  }
+
   // Future<void> delete(Session session, int id) async {
   //   await Account.delete(session, where: (account) => account.id.equals(id),);
   // } 

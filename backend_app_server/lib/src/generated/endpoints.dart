@@ -148,6 +148,28 @@ class Endpoints extends EndpointDispatch {
             );
           },
         ),
+        'readAllBankAcc': MethodConnector(
+          name: 'readAllBankAcc',
+          params: {},
+          call: (Session session, Map<String, dynamic> params) async {
+            return (endpoints['account'] as AccountEndpoint).readAllBankAcc(
+              session,
+            );
+          },
+        ),
+        'updateBankAcc': MethodConnector(
+          name: 'updateBankAcc',
+          params: {
+            'bankAccounts': ParameterDescription(
+                name: 'bankAccounts', type: BankAccounts, nullable: false),
+          },
+          call: (Session session, Map<String, dynamic> params) async {
+            return (endpoints['account'] as AccountEndpoint).updateBankAcc(
+              session,
+              params['bankAccounts'],
+            );
+          },
+        ),
       },
     );
   }

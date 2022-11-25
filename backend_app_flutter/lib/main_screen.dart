@@ -65,6 +65,26 @@ class _MainScreenState extends State<MainScreen> {
             return;
           }
 
+          await api.readAllBankAcc().then((value) async{
+            BankAccounts? b1,b2;
+            for (b1 in value) {
+              if (b1.accountNumber == widget.account!.number) {
+                break;
+              }
+            }
+            for (b2 in value) {
+              if (b2.accountNumber == a!.number) {
+                break;
+              }
+            }
+            if (b1 != null && b2 != null) {
+              b1.balance = widget.account!.balance;
+              b2.balance = a!.balance;
+              await api.updateBankAcc(b1);
+              await api.updateBankAcc(b2);
+            }
+          });
+
           final updatedReceiver = await api.updateAcc(a);
           Account? a1;
           for (a1 in value) {
@@ -73,7 +93,16 @@ class _MainScreenState extends State<MainScreen> {
             }
           }
           a1 = updatedReceiver;
+
           final updatedSender = await api.updateAcc(widget.account!);
+          Account? a2;
+          for (a2 in value) {
+            if (a2.number == widget.account!.number) {
+              break;
+            }
+          }
+          a2 = updatedSender;
+
           setState(() {
             widget.account?.balance = updatedSender.balance;
           });

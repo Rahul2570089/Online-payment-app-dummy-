@@ -110,6 +110,22 @@ class _EndpointAccount extends EndpointRef {
         'account', 'readAllTrans', 'List<Transactions>', {});
     return (retval as List).cast();
   }
+
+  Future<List<BankAccounts>> readAllBankAcc() async {
+    var retval = await caller.callServerEndpoint(
+        'account', 'readAllBankAcc', 'List<BankAccounts>', {});
+    return (retval as List).cast();
+  }
+
+  Future<BankAccounts> updateBankAcc(
+    BankAccounts bankAccounts,
+  ) async {
+    var retval = await caller
+        .callServerEndpoint('account', 'updateBankAcc', 'BankAccounts', {
+      'bankAccounts': bankAccounts,
+    });
+    return retval;
+  }
 }
 
 class Client extends ServerpodClient {

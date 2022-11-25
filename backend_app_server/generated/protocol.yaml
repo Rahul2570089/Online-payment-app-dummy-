@@ -10,3 +10,5 @@ account:
   - updateAcc:
   - createTrans:
   - readAllTrans:
+  - readAllBankAcc:
+  - updateBankAcc:

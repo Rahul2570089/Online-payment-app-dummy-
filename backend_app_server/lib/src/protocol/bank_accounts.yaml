@@ -1,0 +1,8 @@
+class: BankAccounts
+table: bankaccounts
+
+fields:
+  name: String
+  accountNumber: String
+  accountType: String
+  balance: String

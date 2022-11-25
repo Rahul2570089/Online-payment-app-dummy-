@@ -10,3 +10,9 @@ class AccountWithoutId {
   String balance;
   AccountWithoutId({required this.id,required this.balance});
 }
+
+class BankAccountsWithoutBalance {
+  String name;
+  String number;
+  BankAccountsWithoutBalance({required this.name, required this.number});
+}

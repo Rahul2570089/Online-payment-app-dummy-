@@ -1,6 +1,7 @@
 import 'package:backend_app_client/backend_app_client.dart';
 import 'package:backend_app_flutter/main.dart';
 import 'package:backend_app_flutter/main_screen.dart';
+import 'package:backend_app_flutter/models/models_class.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -89,8 +90,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        bool check = false;
 
+                        bool c = false;
+                        String bal='0';
+                        final checkAccount = BankAccountsWithoutBalance(name: nameController.text, number: numberController.text);
+                        await api.readAllBankAcc().then((value) {
+                          for(var i in value) {
+                            if(i.accountNumber == checkAccount.number && i.name == checkAccount.name) {
+                              bal = i.balance;
+                              c=true;
+                              break;
+                            }
+                          }
+                        });
+                        if(!c) {
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Account not found in our database please check your account number and name'),
+                            ),
+                          );
+                          return;
+                        }
+
+                        bool check = false;
                         String currentUserId = emailController.text.split('@')[0];
                         await api.readAllAcc().then((value) {
                           for (var i in value) {
@@ -105,11 +128,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
-                                  'Account already exists. Please try again.'),
+                                  'UPI Account already exists. Please try again.'),
                             ),
                           );
                           return;
                         }
+
                         showDialog(
                             context: context,
                             builder: (context2) {
@@ -175,7 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       holderid: '$id@upi',
                                                       number:
                                                           numberController.text,
-                                                      balance: '1000',
+                                                      balance: bal,
                                                     );
                                                     await api
                                                         .createAcc(newAccount)
@@ -185,7 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                   .showSnackBar(
                                                                 const SnackBar(
                                                                   content: Text(
-                                                                      'Account created successfully.'),
+                                                                      'UPI Account created successfully.'),
                                                                 ),
                                                               ),
                                                               Navigator.of(
